@@ -1,64 +1,74 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Mumsnet Technical Challenge
+We are designing a system that allows `Collectors` to keep track of `Books` that they own. The system will allow this data to be manipulated through an API.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+The system will be running on a standard PHP installation, using MySQL as a data store. For the purposes of this challenge, we don't need to implement any API authentication.
 
-## About Laravel
+## Collectors
+We have provided a migration, model, factory and seeder for `Collectors`.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+`Collectors` can have tens of thousands of `Books` in their collection.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Books
+`Books` consist of a UUID (that is generated when the book is created), a title, and are owned by a single `Collector`.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+There are different types of books:
 
-## Learning Laravel
+- Fiction
+- Non-Fiction
+- Technical
+- Self-Help
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+This data also needs to be stored for each `Book`.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Each `Book` also has an ISBN number that must be looked up via an external service using its UUID.
 
-## Laravel Sponsors
+There can be millions of `Book` records in the database.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## ISBN Client
+We have provided an ISBN client that takes a UUID, and returns a (fake) ISBN number. This class simulates a call to an external service that takes a few seconds to complete.
 
-### Premium Partners
+The class is located in `App\Client\IsbnClient` and expects a Username and Password to be prvided to it when it is instantiated.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+> **NOTE**
+> This file should not be changed as part of this challenge.
 
-## Contributing
+## Routing
+We have provided the routing in the `routes/api.php` routes file. These routes point to stub controllers that we have also provided.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# What Do I Need to Do?
+The aim of this challenge is to implement three different endpoints:
 
-## Code of Conduct
+1. A `POST` endpoint to create a new `Book` for a given `Collector`.
+1. A `GET` endpoint to view the details about a specific `Book`.
+1. A `GET` endpoint to view a most recently added `Book` summary for a given `Collector`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Creating a New Book
+This endpoint should allow a consumer of the API to create a new `Book` for a given `Collector`.
 
-## Security Vulnerabilities
+The endpoint is a `POST` request to `/books`.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+The structure of the payload is up to you, but must be valid JSON.
 
-## License
+## Retrieving Details About a Specific Book
+This endpoint should allow a consumer of the API to get details about a specific `Book`, using its UUID to locate the record.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The endpoint is a `GET` request to `/books/{uuid}`.
+
+The structure of the returned data is up to you, but should be valid JSON and should include all of the data that is held in the system about the book, including its ISBN number.
+
+## Retrieving a Book Summary
+This endpoint should allow a consumer of the API to get a most recently added `Book` summary for a given `Collector`. This summary should include the most recently added `Book` for each of the different types of `Book` (Fiction, Non-Fiction, Technical and Self-Help).
+
+The endpoint is a `GET` request to `/collectors/{id}/recently-added`.
+
+The structure of the returned data is up to you, but should be valid JSON.
+
+# Submissions
+To submit your challenge, fork this repo to a new private repository in your GitHub account.
+
+Once you have completed it and would like us to review it, please add the following users to the repo:
+
+- mdavis1982
+- AntonCooper
+
+Good luck!
