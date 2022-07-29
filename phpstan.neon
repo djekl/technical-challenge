@@ -5,4 +5,7 @@ parameters:
         - app
     level: max
     ignoreErrors:
+        -
+            message: '#Property App\\Client\\IsbnClient\:\:\$[a-zA-Z]* is never read, only written.#'
+            path: app/Client/IsbnClient.php
     excludePaths:
