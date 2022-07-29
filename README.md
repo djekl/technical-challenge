@@ -29,8 +29,7 @@ We have provided an ISBN client that takes a UUID, and returns a (fake) ISBN num
 
 The class is located in `App\Client\IsbnClient` and expects a Username and Password to be prvided to it when it is instantiated.
 
-> **NOTE**
-> This file should not be changed as part of this challenge.
+**_This file should not be changed as part of this challenge._**
 
 ## Routing
 We have provided the routing in the `routes/api.php` routes file. These routes point to stub controllers that we have also provided.
