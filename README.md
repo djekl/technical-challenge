@@ -27,7 +27,7 @@ There can be millions of `Book` records in the database.
 ## ISBN Client
 We have provided an ISBN client that takes a UUID, and returns a (fake) ISBN number. This class simulates a call to an external service that takes a few seconds to complete.
 
-The class is located in `App\Client\IsbnClient` and expects a Username and Password to be prvided to it when it is instantiated.
+The class is located in `App\Client\IsbnClient` and expects a Username and Password to be provided to it when it is instantiated.
 
 **_This file should not be changed as part of this challenge._**
 
