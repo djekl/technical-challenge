@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\CreateBookController;
+use App\Http\Controllers\Api\GetCollectorSummaryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('books', [CreateBookController::class, '__invoke']);
+Route::get('books/{uuid}', [GetBookController::class, '__invoke']);
+Route::get('collectors/{id}/recently-added', [GetCollectorSummaryController::class, '__invoke']);
