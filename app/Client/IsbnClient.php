@@ -3,7 +3,7 @@
 namespace App\Client;
 
 use Illuminate\Support\Str;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class IsbnClient
 {
@@ -13,7 +13,7 @@ class IsbnClient
     ) {
     }
 
-    public function get(Uuid $uuid): string
+    public function get(UuidInterface $uuid): string
     {
         // To simulate an expensive HTTP call, we're sleeping here.
         // In a real system, this would call out to an external service.
