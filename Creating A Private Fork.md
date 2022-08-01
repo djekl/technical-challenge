@@ -16,7 +16,7 @@ For this assignment the commands are:
    > Replace `<your_username>` with your actual Github username in the url below.
 
    ```bash
-   cd mumsnet-technical-challenge.git
+   cd technical-challenge.git
    git push --mirror git@github.com:<your_username>/mumsnet-technical-challenge.git
    ```
 
