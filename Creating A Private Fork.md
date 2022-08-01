@@ -23,7 +23,7 @@ For this assignment the commands are:
 4. Remove the temporary local repository you created in step 1.
    ```bash
    cd ..
-   rm -fr mumsnet-technical-challenge.git
+   rm -fr technical-challenge.git
    ```
 
 5. You can now clone your `mumsnet-technical-challenge` repository on your machine (in my case in the `code` folder).
